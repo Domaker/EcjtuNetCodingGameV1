@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">  
+<meta name="apple-mobile-web-app-status-bar-style" content="black">  
+<meta content="telephone=no" name="format-detection">
+<title>CSS3动画弹出框</title>
+<link rel="stylesheet" href="css/common.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	var i=0;
+	//显示弹框
+	$('.InDown').click(function(){
+		
+		className = $(this).attr('class');
+		$('#show').fadeIn(300);
+		$('#get').removeAttr('class').addClass('animated '+className+'').fadeIn();
+		img = '<img class="getIco" width="50" height="50" src="images/ico.png" alt="" />';
+		img1 = '<img class="getIco" width="50" height="50" src="images/right.png" alt="" />';
+
+		user =$(".user").val();
+		pass = $(".pass").val();
+		repass = $(".repass").val();
+		tel = $(".tel").val();
+		if(user.length==0){
+			$(".img").html(img);
+			$(".add").html("错误提示:用户名不能为空！");
+		}else if(pass.length<6){
+			$(".img").html(img);
+			$(".add").html("错误提示:密码位数过短，请设置大于6位");
+		}else{
+			if(pass!=repass){
+				$(".img").html(img);
+				$(".add").html("错误提示:两次密码不相同！");
+			}else{
+				if(tel.length!=11){
+					$(".img").html(img);
+					$(".add").html("错误提示:手机号码格式不对!");
+					i++;
+				}else{
+					if(i>3){
+						$(".img").html(img1);
+						$(".add").html("填了"+i+"次才填对手机号的人只有两种：一种是我的BOSS,另一种就是生活在21世纪以外的人！无论你是哪一种，恭喜你，这次格式全对了！");
+					}else{
+						$(".img").html(img1);
+						$(".add").html("格式全部正确");
+					}
+				}
+			}
+		}
+	});
+	
+	//关闭弹窗
+	$('.close').click(function(){
+		$('#show').fadeOut(300,function(){
+			$('#get').addClass('out').fadeOut();
+		});
+	});
+});
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div class="box">
+		<form action="" method="" class="form">
+			<li>&emsp;用户名：<input type="text" name="user" class="user" placeholder="用户名" /></li>
+			<li>&emsp;密&emsp;码：<input type="password" name="pass" class="pass" /></li>
+			<li>重复密码：<input type="password" name="pass" class="repass" /></li>
+			<li>&emsp;手机号： <input type="text" name="tel" class="tel" placeholder="手机号（11位数字）" /></li>
+			<a name="sub" class="InDown" href="javascript:;">提交</a>
+		</form> 
+		<!-- 提示框 -->
+		<div id="show"></div>
+		<div id="get" class="animated">
+			<div class="img"></div>
+			<div class="getTop">
+				<a href="javascript:;" class="close">关闭</a>
+			</div>
+			<div class="add"></div>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+</html>
